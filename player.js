@@ -91,6 +91,7 @@ function loadVideo() {
             resetPlayer();
             mediaPlayer.src = arguments[i];
             mediaPlayer.load();
+            togglePlayPause();
             break;
         }
     }
@@ -100,4 +101,17 @@ function canPlayVideo(ext) {
     var ableToPlay = mediaPlayer.canPlayType('video/' + ext);
     if (ableToPlay == '') return false;
     else return true;
+}
+
+
+function addLink() {
+    var listElement = document.createElement('li');
+    var spanElement = document.createElement('span');
+    spanElement.classList.add('play-item');
+    spanElement.onclick = function() {
+        loadVideo(document.getElementById('link-input').value);
+    }
+    spanElement.innerHTML = document.getElementById('link-input').value;
+    listElement.appendChild(spanElement);
+    document.getElementById('play-list').appendChild(listElement);
 }
