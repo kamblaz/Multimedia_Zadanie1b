@@ -69,9 +69,10 @@ function replayMedia() {
 }
 
 function resetPlayer() {
+    var progressBar = document.getElementById('progress-bar');
     progressBar.value = 0;
     mediaPlayer.currentTime = 0;
-    changeButtonType(playPauseBtn, 'play');
+    changeButtonType(document.getElementById('play-pause-button'), 'play');
 }
 
 function updateProgressBar() {
@@ -87,10 +88,16 @@ function loadVideo() {
         var file = arguments[i].split('.');
         var ext = file[file.length - 1];
         if (canPlayVideo(ext)) {
-            resetMediaPlayer();
+            resetPlayer();
             mediaPlayer.src = arguments[i];
             mediaPlayer.load();
             break;
         }
     }
+}
+
+function canPlayVideo(ext) {
+    var ableToPlay = mediaPlayer.canPlayType('video/' + ext);
+    if (ableToPlay == '') return false;
+    else return true;
 }
