@@ -1,46 +1,97 @@
 body {
-    width: 100%;
-    margin: 0 auto;
-    padding: 0px;
-    font-family: helvetica;
-    background-color: black;
+    font-family: 'verdana';
 }
 
-#wrapper {
-    text-align: center;
-    margin: 0 auto;
-    padding: 0px;
-    width: 90vw;
+h1 {
+    font-size: 16px;
+    color: #333;
 }
 
-#player_wrapper {
-    position: relative;
-    width: 80vw;
-    height: 80vh;
-}
-
-#video_player {
-    width: 80vw;
-    height: 80vh;
-}
-
-#player_controls {
-    position: absolute;
-    background-color: black;
-    width: 100vw;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-input[type="image"] {
+#media-player {
     float: left;
-    height: 20px;
-    margin-left: 2px;
-    margin-right: 5px;
-    margin-top: 2px;
+    padding: 1em 1em .5em;
+    background-color: #333;
 }
 
-#vol_img {
-    margin-left: 150px;
-    width: 20px;
+video {
+    border: 1px solid #2e52a4;
+    width: 305px;
+    height: 160px;
+    background: #000;
+}
+
+button {
+    text-indent: -9999px;
+    width: 16px;
+    height: 16px;
+    border: none;
+    cursor: pointer;
+    background: transparent url('images/buttons.png') no-repeat 0 0;
+}
+
+.pause {
+    background-position: -19px 0;
+}
+
+.stop {
+    background-position: -38px 0;
+}
+
+.volume-plus {
+    background-position: -57px 0;
+}
+
+.volume-minus {
+    background-position: -76px 0;
+}
+
+.mute {
+    background-position: -95px 0;
+}
+
+.unmute {
+    background-position: -114px 0;
+}
+
+.replay {
+    background-position: -133px 0;
+}
+
+progress {
+    color: #fff;
+    font-size: 12px;
+    width: 172px;
+    height: 16px;
+    border: none;
+    margin-right: 5px;
+    background: #434343;
+}
+
+progress::-moz-progress-bar {
+    background: #2e52a4;
+}
+
+#media-play-list {
+    float: left;
+    clear: both;
+    color: #aaa;
+    width: 100%;
+    margin-top: 10px;
+    border-top: 1px solid #2e52a4;
+}
+
+#media-play-list h2 {
+    font-size: 12px;
+}
+
+#play-list {
+    padding: 0;
+    font-size: 12px;
+    list-style-type: none;
+}
+
+#play-list li {
+    cursor: pointer;
+    padding-left: 15px;
+    background: transparent url('images/item.png') no-repeat 0 4px;
 }
