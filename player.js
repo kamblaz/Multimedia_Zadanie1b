@@ -4,8 +4,14 @@ var player;
 function choose_video(name) {
     player.innerHTML = '';
     var source = document.createElement('source');
+    source.addEventListener('ended', myHandler, false);
+
+    function myHandler(e) {
+        // What you want to do after the event
+    }
     player.appendChild(source);
     source.setAttribute('src', name);
+
     player.load();
     play_vid();
 }
