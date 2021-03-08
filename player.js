@@ -114,6 +114,9 @@ function addLink() {
     spanElement.onclick = function() {
         loadVideo(document.getElementById('link-input').value);
     }
+    removeButton.onclick = function() {
+        remove(this);
+    }
     spanElement.innerHTML = document.getElementById('link-input').value;
     listElement.appendChild(spanElement);
     listElement.appendChild(removeButton);
@@ -122,6 +125,11 @@ function addLink() {
     console.log(videos.length);
 }
 
-function remove() {
-
+function remove(el) {
+    var element = el;
+    var parent = el.parentElement;
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+    parent.remove();
 }
