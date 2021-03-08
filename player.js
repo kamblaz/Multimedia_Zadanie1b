@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() { initialiseMediaPlayer(); }, false);
 var mediaPlayer;
 var videos;
+var currentVideo;
 
 function initialiseMediaPlayer() {
     mediaPlayer = document.getElementById('media-video');
@@ -19,6 +20,10 @@ function initialiseMediaPlayer() {
         if (mediaPlayer.muted) changeButtonType(btn, 'unmute');
         else changeButtonType(btn, 'mute');
     }, false);
+    mediaPlayer.onended = function(e) {
+        console.log("aaa");
+        loadVideo(findNext());
+    };
 }
 
 function togglePlayPause() {
@@ -91,6 +96,8 @@ function loadVideo() {
         if (canPlayVideo(ext)) {
             resetPlayer();
             mediaPlayer.src = arguments[i];
+            currentVideo = arguments[i];
+            console.log(currentVideo);
             mediaPlayer.load();
             togglePlayPause();
             break;
@@ -126,10 +133,14 @@ function addLink() {
 }
 
 function remove(el) {
-    var element = el;
     var parent = el.parentElement;
+    console.log(parent.firstChild.innerHTML);
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
     parent.remove();
+}
+
+function findNext() {
+    return 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
 }
