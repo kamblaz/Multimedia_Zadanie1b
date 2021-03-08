@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() { initialiseMediaPlayer(); }, false);
 var mediaPlayer;
+var videos;
 
 function initialiseMediaPlayer() {
     mediaPlayer = document.getElementById('media-video');
@@ -107,11 +108,20 @@ function canPlayVideo(ext) {
 function addLink() {
     var listElement = document.createElement('li');
     var spanElement = document.createElement('span');
+    var removeButton = document.createElement('button');
     spanElement.classList.add('play-item');
+    removeButton.classList.add('volume-minus');
     spanElement.onclick = function() {
         loadVideo(document.getElementById('link-input').value);
     }
     spanElement.innerHTML = document.getElementById('link-input').value;
     listElement.appendChild(spanElement);
+    listElement.appendChild(removeButton);
     document.getElementById('play-list').appendChild(listElement);
+    videos = document.getElementsByTagName('span');
+    console.log(videos.length);
+}
+
+function remove() {
+
 }
