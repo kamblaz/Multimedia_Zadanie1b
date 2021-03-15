@@ -45,15 +45,15 @@
             videoPlayer.src = movieLink.getAttribute('data-video');
         });
     }
-    const setMoveUpListener = (movie) => movie.querySelector('.movie__up-button').addEventListener('click', () => {
+    const setMoveUpListener = (movie) => movie.querySelector('.move_up_button').addEventListener('click', () => {
         moveUp(movie);
         renderList()
     });
-    const setMoveDowListener = (movie) => movie.querySelector('.movie__down-button').addEventListener('click', () => {
+    const setMoveDownListener = (movie) => movie.querySelector('.move_down_button').addEventListener('click', () => {
         moveDown(movie);
         renderList();
     });
-    const setRemoveListener = (movie) => movie.querySelector('.movie__remove-button').addEventListener('click', () => {
+    const setRemoveListener = (movie) => movie.querySelector('.remove_button').addEventListener('click', () => {
         remove(movie);
         renderList();
     });
@@ -61,7 +61,7 @@
     const initializeLitenersForMovieItem = (movieItem) => {
         setPlayVideoListener(movieItem);
         setMoveUpListener(movieItem);
-        setMoveDowListener(movieItem);
+        setMoveDownListener(movieItem);
         setRemoveListener(movieItem);
     }
 
@@ -74,13 +74,13 @@
         title.className = 'movie__link';
         const up = document.createElement('button');
         up.textContent = '↑';
-        up.className = 'movie__up-button';
+        up.className = 'move_up_button';
         const down = document.createElement('button');
         down.textContent = '↓';
-        down.className = 'movie__down-button';
+        down.className = 'move_down_button';
         const remove = document.createElement('button');
         remove.textContent = 'Remove';
-        remove.className = 'movie__remove-button';
+        remove.className = 'remove_button';
         movieItem.appendChild(title);
         movieItem.appendChild(up);
         movieItem.appendChild(down);

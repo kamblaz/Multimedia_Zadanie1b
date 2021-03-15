@@ -8,25 +8,25 @@
 </head>
 
 <body>
-    <main>
-        <section class="movie-list">
+    <div>
+        <div class="movie-list">
             <h2>Movie playlist</h2>
             <ol class="movies-wrapper">
                 <li class="movie">
                     <span class="movie__link" data-video="video/3.mp4">Park</span class="movie__link">
-                    <button class="movie__up-button">↑</button>
-                    <button class="movie__down-button">↓</button>
-                    <button class="movie__remove-button">Remove</button>
+                    <button class="move_up_button">↑</button>
+                    <button class="move_down_button">↓</button>
+                    <button class="remove_button">Remove</button>
                 </li>
                 <li class="movie">
                     <span class="movie__link" data-video="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4">Big Buck Bunny</span class="movie__link">
-                    <button class="movie__up-button">↑</button>
-                    <button class="movie__down-button">↓</button>
-                    <button class="movie__remove-button">Remove</button>
+                    <button class="move_up_button">↑</button>
+                    <button class="move_down_button">↓</button>
+                    <button class="remove_button">Remove</button>
                 </li>
             </ol>
-        </section>
-        <section class="movie-form">
+        </div>
+        <div class="movie-form">
             <h2>Add movie to playlist</h2>
             <form class="add-movie__form">
                 <div class="form__item movie-title">
@@ -41,11 +41,11 @@
                     <button class="add-movie__button">Add</button>
                 </div>
             </form>
-        </section>
-        <section class="video-player">
-            <video autoplay controls width="720" src="video/3.mp4"></video>
-        </section>
-    </main>
+        </div>
+        <div class="video-player">
+            <video muted autoplay controls width="720" src="video/3.mp4"></video>
+        </div>
+    </div>
     <script src='player.js'></script>
 </body>
 </html>
