@@ -2,39 +2,50 @@
 
 <head>
     <meta charset='utf-8' />
+    <title>Video player</title>
     <link href='player.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='player.js'></script>
 </head>
 
 <body>
-    <div id='media-player'>
-        <video id='media-video' controls>
-			<source src='video/2.mp4' type='video/mp4'>
-		</video>
-        <div id='media-controls'>
-            <progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
-            <button id='replay-button' class='replay' title='replay' onclick='replayMedia();'>Replay</button>
-            <button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
-            <button id='stop-button' class='stop' title='stop' onclick='stopPlayer();'>Stop</button>
-            <button id='volume-inc-button' class='volume-plus' title='increase volume' onclick='changeVolume("+");'>Increase volume</button>
-            <button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
-            <button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
-        </div>
-        <div id='media-play-list'>
-            <h2>Play list</h2>
-            <ul id='play-list'>
-                <li><span class='play-item' id="video/2.mp4" onclick='loadVideo("video/2.mp4");'>Robot</span>
-                    <button class='volume-minus' onclick='remove(this);'></button></li>
-                <li><span id='https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4' class='play-item' onclick='loadVideo("https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4");'>Example</span>
-                    <button class='volume-minus' onclick='remove(this);'></button></li>
-            </ul>
-        </div>
-        <div>
-            <input id="link-input" type="text">
-            <button class=' volume-plus ' onclick="addLink()">Add</button>
-        </div>
-    </div>
+    <main>
+        <section class="movie-list">
+            <h2>Movie playlist</h2>
+            <ol class="movies-wrapper">
+                <li class="movie">
+                    <span class="movie__link" data-video="video/3.mp4">Big Buck Bunny</span class="movie__link">
+                    <button class="movie__up-button">↑</button>
+                    <button class="movie__down-button">↓</button>
+                    <button class="movie__remove-button">Rmove</button>
+                </li>
+                <li class="movie">
+                    <span class="movie__link" data-video="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4">Big Buck Bunny</span class="movie__link">
+                    <button class="movie__up-button">↑</button>
+                    <button class="movie__down-button">↓</button>
+                    <button class="movie__remove-button">Rmove</button>
+                </li>
+            </ol>
+        </section>
+        <section class="movie-form">
+            <h2>Add movie to playlist</h2>
+            <form class="add-movie__form">
+                <div class="form__item movie-title">
+                    <label for="movie-title">Enter movie title: </label>
+                    <input type="text" name="movie-title" id="movie-title" value="Robot" required>
+                </div>
+                <div class="form__item movie-url">
+                    <label for="movie-url">Enter movie url: </label>
+                    <input type="text" name="movie-url" id="movie-url" value="http://techslides.com/demos/sample-videos/small.mp4" required>
+                </div>
+                <div class="form__item add-movie">
+                    <button class="add-movie__button">Add</button>
+                </div>
+            </form>
+        </section>
+        <section class="video-player">
+            <video autoplay controls width="720" src="video/3.mp4"></video>
+        </section>
+    </main>
 </body>
-
 </html>

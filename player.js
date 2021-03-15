@@ -1,146 +1,108 @@
-document.addEventListener("DOMContentLoaded", function() { initialiseMediaPlayer(); }, false);
-var mediaPlayer;
-var videos;
-var currentVideo;
+(function() {
+    const videoPlayer = document.querySelector('video');
+    const playlistWrapper = document.querySelector('.movies-wrapper');
+    const addMovieButton = document.querySelector('.add-movie__button');
+    const newMovieTitle = document.querySelector('#movie-title');
+    const newMovieUrl = document.querySelector('#movie-url');
+    let movies = Array.from(document.querySelectorAll('.movie'));
 
-function initialiseMediaPlayer() {
-    mediaPlayer = document.getElementById('media-video');
-    mediaPlayer.controls = false;
-    mediaPlayer.addEventListener('timeupdate', updateProgressBar, false);
-    mediaPlayer.addEventListener('play', function() {
-        var btn = document.getElementById('play-pause-button');
-        changeButtonType(btn, 'pause');
-    }, false);
-    mediaPlayer.addEventListener('pause', function() {
-        var btn = document.getElementById('play-pause-button');
-        changeButtonType(btn, play);
-    }, false);
-    mediaPlayer.addEventListener('volumechange', function(e) {
-        var btn = document.getElementById('mute-button');
-        if (mediaPlayer.muted) changeButtonType(btn, 'unmute');
-        else changeButtonType(btn, 'mute');
-    }, false);
-    mediaPlayer.onended = function(e) {
-        console.log("aaa");
-        loadVideo(findNext());
-    };
-}
+    addMovieButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        createNewMovieElement();
+    })
 
-function togglePlayPause() {
-    var btn = document.getElementById('play-pause-button');
-    if (mediaPlayer.paused || mediaPlayer.ended) {
-        btn.title = 'pause';
-        btn.innerHTML = 'pause';
-        btn.className = 'pause';
-        mediaPlayer.play();
-    } else {
-        btn.title = 'play';
-        btn.innerHTML = 'play';
-        btn.className = 'play';
-        mediaPlayer.pause();
+    const swapArrayElements = (arr, indexA, indexB) => [arr[indexA], arr[indexB]] = [arr[indexB], arr[indexA]];
+
+    const moveUp = (movie) => {
+        let oldIndex = Number(movie.getAttribute('data-index'));
+        if (oldIndex === 0) {
+            return void 0;
+        }
+        let newIndex = oldIndex - 1;
+        swapArrayElements(movies, oldIndex, newIndex);
     }
-}
 
-function changeButtonType(btn, value) {
-    btn.title = value;
-    btn.innerHTML = value;
-    btn.className = value;
-}
-
-function stopPlayer() {
-    mediaPlayer.pause();
-    mediaPlayer.currentTime = 0;
-}
-
-function changeVolume(direction) {
-    if (direction === '+') mediaPlayer.volume += mediaPlayer.volume == 1 ? 0 : 0.1;
-    else mediaPlayer.volume -= (mediaPlayer.volume == 0 ? 0 : 0.1);
-    mediaPlayer.volume = parseFloat(mediaPlayer.volume).toFixed(1);
-}
-
-function toggleMute() {
-    var btn = document.getElementById('mute-button');
-    if (mediaPlayer.muted) {
-        changeButtonType(btn, 'mute');
-        mediaPlayer.muted = false;
-    } else {
-        changeButtonType(btn, 'unmute');
-        mediaPlayer.muted = true;
+    const moveDown = (movie) => {
+        let oldIndex = Number(movie.getAttribute('data-index'));
+        if (oldIndex === movies.length - 1) {
+            return void 0;
+        }
+        let newIndex = oldIndex + 1;
+        swapArrayElements(movies, oldIndex, newIndex);
     }
-}
 
-function replayMedia() {
-    resetPlayer();
-    mediaPlayer.play();
-}
-
-function resetPlayer() {
-    var progressBar = document.getElementById('progress-bar');
-    progressBar.value = 0;
-    mediaPlayer.currentTime = 0;
-    changeButtonType(document.getElementById('play-pause-button'), 'play');
-}
-
-function updateProgressBar() {
-    var progressBar = document.getElementById('progress-bar');
-    var percentage = Math.floor((100 / mediaPlayer.duration) *
-        mediaPlayer.currentTime);
-    progressBar.value = percentage;
-    progressBar.innerHTML = percentage + '% played';
-}
-
-function loadVideo() {
-    for (var i = 0; i < arguments.length; i++) {
-        var file = arguments[i].split('.');
-        var ext = file[file.length - 1];
-        if (canPlayVideo(ext)) {
-            resetPlayer();
-            mediaPlayer.src = arguments[i];
-            currentVideo = arguments[i];
-            console.log(currentVideo);
-            mediaPlayer.load();
-            togglePlayPause();
-            break;
+    const remove = (movie) => {
+        const index = movie.getAttribute('data-index');
+        movies.splice(index, 1);
+        for (let i = index; i < movies.length; i++) {
+            movies[i].setAttribute('data-index', i.toString());
         }
     }
-}
 
-function canPlayVideo(ext) {
-    var ableToPlay = mediaPlayer.canPlayType('video/' + ext);
-    if (ableToPlay == '') return false;
-    else return true;
-}
-
-
-function addLink() {
-    var listElement = document.createElement('li');
-    var spanElement = document.createElement('span');
-    var removeButton = document.createElement('button');
-    spanElement.classList.add('play-item');
-    removeButton.classList.add('volume-minus');
-    spanElement.onclick = function() {
-        loadVideo(document.getElementById('link-input').value);
+    const setPlayVideoListener = (movie) => {
+        const movieLink = movie.querySelector('.movie__link');
+        movieLink.addEventListener('click', () => {
+            videoPlayer.src = movieLink.getAttribute('data-video');
+        });
     }
-    removeButton.onclick = function() {
-        remove(this);
-    }
-    spanElement.innerHTML = document.getElementById('link-input').value;
-    listElement.appendChild(spanElement);
-    listElement.appendChild(removeButton);
-    document.getElementById('play-list').appendChild(listElement);
-    videos = document.getElementsByTagName('span');
-    console.log(videos.length);
-}
+    const setMoveUpListener = (movie) => movie.querySelector('.movie__up-button').addEventListener('click', () => {
+        moveUp(movie);
+        renderList()
+    });
+    const setMoveDowListener = (movie) => movie.querySelector('.movie__down-button').addEventListener('click', () => {
+        moveDown(movie);
+        renderList();
+    });
+    const setRemoveListener = (movie) => movie.querySelector('.movie__remove-button').addEventListener('click', () => {
+        remove(movie);
+        renderList();
+    });
 
-function remove(el) {
-    var parent = el.parentElement;
-    console.log(parent.firstChild.innerHTML);
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+    const initializeLitenersForMovieItem = (movieItem) => {
+        setPlayVideoListener(movieItem);
+        setMoveUpListener(movieItem);
+        setMoveDowListener(movieItem);
+        setRemoveListener(movieItem);
     }
-    parent.remove();
-}
 
-function findNext() {
-    return 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4';
-}
+    const createNewMovieElement = () => {
+        const movieItem = document.createElement('li');
+        movieItem.className = 'movie';
+        const title = document.createElement('span');
+        title.setAttribute('data-video', newMovieUrl.value);
+        title.textContent = newMovieTitle.value;
+        title.className = 'movie__link';
+        const up = document.createElement('button');
+        up.textContent = '↑';
+        up.className = 'movie__up-button';
+        const down = document.createElement('button');
+        down.textContent = '↓';
+        down.className = 'movie__down-button';
+        const remove = document.createElement('button');
+        remove.textContent = 'Remove';
+        remove.className = 'movie__remove-button';
+        movieItem.appendChild(title);
+        movieItem.appendChild(up);
+        movieItem.appendChild(down);
+        movieItem.appendChild(remove);
+        movies.push(movieItem);
+        initializeLitenersForMovieItem(movieItem);
+        movieItem.setAttribute('data-index', (movies.length - 1).toString());
+        playlistWrapper.appendChild(movieItem);
+        newMovieUrl.value = '';
+        newMovieTitle.value = '';
+
+    }
+
+    const renderList = () => {
+        playlistWrapper.innerHTML = '';
+        movies.forEach((movieItem, idx) => {
+            movieItem.setAttribute('data-index', idx.toString());
+            playlistWrapper.appendChild(movieItem);
+        });
+    }
+
+    movies.forEach(movie => initializeLitenersForMovieItem(movie));
+
+    renderList();
+})();
