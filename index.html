@@ -52,14 +52,22 @@
     </div>
     <script src='player.js'></script>
     <script type='text/javascript'>
-     document.getElementById('video').addEventListener('ended',myHandler,false);
+    video_count = 1;
+    document.getElementById('video').addEventListener('ended',myHandler,false);
     function myHandler(e) {
         var lis = document.getElementById("list_of_movies").getElementsByTagName("span");
-        $("#video").attr('src', lis[1].getAttribute('data-video'));
+        if (video_count == lis.length - 1) {
+            $("#video").attr('src', lis[video_count].getAttribute('data-video')); 
+            video_count = video_count + 1;          
+        } else {
+            $("#video").attr('src', lis[0].getAttribute('data-video'));
+            video_count = 1;
+        }       
         $("#video")[0].load();
-        console.log(lis[0].getAttribute('data-video'));
-        console.log(lis.length)
+        console.log("Number of videos", lis.length)
+        console.log("Current video index", video_count)
         console.log("ended");
+        
     }
     </script>
 </body>
