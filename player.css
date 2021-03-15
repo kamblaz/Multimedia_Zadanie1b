@@ -4,26 +4,26 @@
     box-sizing: border-box;
 }
 
-.movie-list,
-.movie-form,
-.video-player {
+.movies_list,
+.movie_form,
+.video_player {
     margin: 40px 0;
 }
 
 .movie,
-.form__item {
+.form_item {
     padding: 8px 0;
 }
 
-.movie__link,
+.movie_link,
 .move_up_button,
 .move_down_button,
 .remove_button,
-.add-movie__button {
+.add_movie_button {
     cursor: pointer;
 }
 
-.movie__link {
+.movie_link {
     color: blue;
     text-decoration: underline;
 }

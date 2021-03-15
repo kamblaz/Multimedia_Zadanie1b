@@ -1,9 +1,9 @@
 (function() {
     const videoPlayer = document.querySelector('video');
-    const playlistWrapper = document.querySelector('.movies-wrapper');
-    const addMovieButton = document.querySelector('.add-movie__button');
-    const newMovieTitle = document.querySelector('#movie-title');
-    const newMovieUrl = document.querySelector('#movie-url');
+    const playlistWrapper = document.querySelector('.movies_wrapper');
+    const addMovieButton = document.querySelector('.add_movie_button');
+    const newMovieTitle = document.querySelector('#movie_title');
+    const newMovieUrl = document.querySelector('#movie_url');
     let movies = Array.from(document.querySelectorAll('.movie'));
 
     addMovieButton.addEventListener('click', (e) => {
@@ -40,22 +40,22 @@
     }
 
     const setPlayVideoListener = (movie) => {
-        const movieLink = movie.querySelector('.movie__link');
+        const movieLink = movie.querySelector('.movie_link');
         movieLink.addEventListener('click', () => {
             videoPlayer.src = movieLink.getAttribute('data-video');
         });
     }
     const setMoveUpListener = (movie) => movie.querySelector('.move_up_button').addEventListener('click', () => {
         moveUp(movie);
-        renderList()
+        reloadList()
     });
     const setMoveDownListener = (movie) => movie.querySelector('.move_down_button').addEventListener('click', () => {
         moveDown(movie);
-        renderList();
+        reloadList();
     });
     const setRemoveListener = (movie) => movie.querySelector('.remove_button').addEventListener('click', () => {
         remove(movie);
-        renderList();
+        reloadList();
     });
 
     const initializeLitenersForMovieItem = (movieItem) => {
@@ -71,7 +71,7 @@
         const title = document.createElement('span');
         title.setAttribute('data-video', newMovieUrl.value);
         title.textContent = newMovieTitle.value;
-        title.className = 'movie__link';
+        title.className = 'movie_link';
         const up = document.createElement('button');
         up.textContent = '↑';
         up.className = 'move_up_button';
@@ -94,7 +94,7 @@
 
     }
 
-    const renderList = () => {
+    const reloadList = () => {
         playlistWrapper.innerHTML = '';
         movies.forEach((movieItem, idx) => {
             movieItem.setAttribute('data-index', idx.toString());
@@ -104,5 +104,5 @@
 
     movies.forEach(movie => initializeLitenersForMovieItem(movie));
 
-    renderList();
+    reloadList();
 })();
