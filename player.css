@@ -20,6 +20,7 @@
 .move_down_button,
 .remove_button,
 .add_movie_button {
+    background: url(images/plus.png) no-repeat;
     cursor: pointer;
 }
 
