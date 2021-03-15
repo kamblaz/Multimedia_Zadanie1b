@@ -1,30 +1,17 @@
-*,
- ::after,
- ::before {
-    box-sizing: border-box;
-}
-
-.movies_list,
-.movie_form,
-.video_player {
-    margin: 40px 0;
-}
-
-.movie,
-.form_item {
-    padding: 8px 0;
-}
-
 .movie_link,
 .move_up_button,
 .move_down_button,
 .remove_button,
 .add_movie_button {
-    background: url(images/plus.png) no-repeat;
     cursor: pointer;
 }
 
 .movie_link {
     color: blue;
     text-decoration: underline;
+}
+
+img {
+    width: 20px;
+    height: 20px;
 }
