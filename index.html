@@ -15,7 +15,7 @@
     <div>
         <div class="movies_list">
             <h2>Movies playlist</h2>
-            <ol class="movies_wrapper">
+            <ol id="list_of_movies" class="movies_wrapper">
                 <li class="movie">
                     <span class="movie_link" data-video="video/3.mp4">Park</span class="movie_link">
                     <button class="move_up_button">↑</button>
@@ -47,9 +47,20 @@
             </form>
         </div>
         <div class="video_player">
-            <video muted autoplay controls width="720" src="video/3.mp4"></video>
+            <video id="video" muted autoplay controls width="720" src="video/3.mp4"></video>
         </div>
     </div>
     <script src='player.js'></script>
+    <script type='text/javascript'>
+     document.getElementById('video').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+        var lis = document.getElementById("list_of_movies").getElementsByTagName("span");
+        $("#video").attr('src', lis[1].getAttribute('data-video'));
+        $("#video")[0].load();
+        console.log(lis[0].getAttribute('data-video'));
+        console.log(lis.length)
+        console.log("ended");
+    }
+    </script>
 </body>
 </html>
